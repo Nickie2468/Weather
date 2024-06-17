@@ -1,0 +1,21 @@
+API_KEY = "自分のAPIKEY"
+
+BASE_URL = 'http://api.openweathermap.org/data/2.5/weather'
+PARAMS = {
+    'q': 'Osaka,JP',
+    'appid': API_KEY
+}
+
+response = requests.get(BASE_URL, params=PARAMS)
+data = response.json()
+
+if response.status_code == 200:
+    main_data = data['main']
+    weather_data = data['weather'][0]
+    print(f"都市: {data['name']}")
+    print(f"気温: {main_data['temp']}℃")
+    print(f"気圧: {main_data['pressure']} hPa")
+    print(f"湿度: {main_data['humidity']}%")
+    print(f"天気: {weather_data['description']}")
+else:
+    print(f"エラー: {data['message']}")
